@@ -1,0 +1,96 @@
+import 'package:flutter_app/utils/conversores.dart';
+import 'package:flutter_app/utils/cores_do_aplicativo.dart';
+import 'package:flutter_app/utils/fonts.dart';
+import 'package:flutter_app/widget/rich_text_widet.dart';
+import 'package:componentes_lr/componentes_lr.dart';
+import 'package:flutter/material.dart';
+
+class CardVendasWidget extends StatefulWidget {
+  final String numVenda;
+  final String nomeVendedor;
+  final String dataString;
+  final double valorVenda;
+  const CardVendasWidget(
+      {super.key,
+      required this.numVenda,
+      required this.nomeVendedor,
+      required this.dataString,
+      required this.valorVenda});
+
+  @override
+  State<CardVendasWidget> createState() => _CardVendasWidgetState();
+}
+
+class _CardVendasWidgetState extends State<CardVendasWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(top: MediaQuery.of(context).size.width * 0.02),
+      child: Container(
+        height: 150,
+        decoration: BoxDecoration(
+            border: Border.all(color: lightGray),
+            borderRadius: BorderRadius.circular(20)),
+        child: Padding(
+          padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.03,
+              right: MediaQuery.of(context).size.width * 0.03,
+              top: MediaQuery.of(context).size.width * 0.02),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextWidget(
+                    widget.numVenda,
+                    fontSize: font_18,
+                    textColor: textGray,
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(right: 10),
+                    child: Icon(
+                      Icons.keyboard_arrow_right,
+                      color: lightGray,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * .01,
+              ),
+              Container(
+                color: lightGray,
+                height: MediaQuery.of(context).size.height * 0.001,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              CustomRich("Vendedor: ", widget.nomeVendedor),
+              CustomRich("Data: ", widget.dataString),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextWidget(
+                      "Total",
+                      fontWeight: FontWeight.bold,
+                      fontSize: font_16,
+                    ),
+                    const Spacer(),
+                    TextWidget(
+                      Conversores.formatarValorEmReal(widget.valorVenda),
+                      fontWeight: FontWeight.bold,
+                      fontSize: font_16,
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
